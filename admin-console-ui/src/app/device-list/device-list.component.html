@@ -1,0 +1,44 @@
+
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Device List</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>Device IP</th>
+            <th>MAC Address</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th style="width: 40px">Config</th>
+            <th style="width: 40px">Apply</th>
+          </tr>
+      
+        </thead>
+        <tbody>
+          <tr  *ngFor="let device of deviceList; let i = index">
+            <td>  {{i+1}}</td>
+            <td>{{device.ip}}</td>
+            <td>
+                {{device.mac}}
+            </td>
+            <td>
+              {{device.type}}
+          </td>
+          <td>
+            {{device.status}}
+        </td>
+            <td><i class="fas fa-edit"  (click)="deviceConfig(device)"></i></td>
+            <td><button *ngIf="device.status !=='pending'" class="btn btn-block btn-success btn-xs"  (click)="applyConfig(device)">Apply</button></td>
+          </tr>     
+       
+      
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>

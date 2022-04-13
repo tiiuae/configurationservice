@@ -1,0 +1,187 @@
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Admin List</h3>
+      <div class="float-sm-right">   
+       
+        <button  type="button" class="btn-sm btn-success" data-toggle="modal" data-target="#userCreateModal">
+        Create New Admin
+      </button>
+ 
+                 <!-- create  Modal -->
+                 <div class="modal fade bd-example-modal-lg custom-modal-edit" id="userCreateModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-lg" role="document">
+                     <div class="modal-content">
+                         <form [formGroup]="userForm">
+                             <div class="modal-header no-border">
+                                 <h5 class="modal-title" id="exampleModalLabel">Create Admin</h5>
+                                 <button type="button" #userCreateModal class="close" data-dismiss="modal"
+                                     aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <div class="col-md-12 col-sm-12 col-xs-12 modal-edit-form">
+               
+                                     <div class="mb-3 row">
+                                         <label for="amount" class="col-sm-5 col-form-label">Username </label>
+                                         <div class="col-sm-7">
+                                             <input type="text" class="form-control custom-placeholder"
+                                                 formControlName="username" id="username"
+                                                 placeholder="UserName" /> 
+                                             <span *ngIf="submitted && w.username.errors" class="text-danger">
+                                                 <span *ngIf="w.username.errors.required ">
+                                                    Please Enter username
+                                                 </span></span>
+                                         </div>
+                                     </div>
+                                     <div class="mb-3 row">
+                                       <label for="validity" class="col-sm-5 col-form-label">Password</label>
+                                       <div class="col-sm-7">
+                                           <input type="password" class="form-control custom-placeholder"
+                                               formControlName="password" id="password"
+                                               placeholder="password" /> 
+                                           <span *ngIf="submitted && w.password.errors" class="text-danger">
+                                               <span *ngIf="w.password.errors.required ">
+                                                  Please Enter Password
+                                               </span></span>
+                                       </div>
+                                   </div>
+                                  
+                                     
+                              
+               
+                                 </div>
+                             </div>
+                             <div class="modal-footer no-border">
+                            
+               
+                                 <button  type="button" (click)="createUser()"
+                                     class="btn btn-primary btn-lg admin-main-btn admin-btn-bg next-3 next">Save</button>
+                                     
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+               </div>
+             
+             
+             
+  
+ 
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1"  class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>User id</th>
+            <th>user name</th>
+            <th>Active</th>
+            <th style="width: 40px">Action</th>
+            <th style="width: 40px">Action</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let user of userList; let i = index">
+            <td>  {{i+1}}</td>
+            <td>{{user.userId}}</td>
+            <td>
+                {{user.username}}
+            </td>
+            <td>
+              <div *ngIf="user.active">Yes</div>
+              <div *ngIf="!user.active">No</div>
+          </td>
+            <td><i class="fas fa-edit" data-toggle="modal" data-target="#userModal"
+                (click)="editUser(user)" aria-hidden="true"></i></td>
+           
+                <td><i class="fas fa-trash" 
+                  (click)="deleteUser(user)" ></i></td>
+      </tr>  
+      
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+   
+  </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg custom-modal-edit" id="userModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form [formGroup]="userForm">
+                <div class="modal-header no-border">
+                    <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                    <button type="button" #userModal class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 modal-edit-form">
+  
+                        <div class="mb-3 row">
+                            <label for="amount" class="col-sm-5 col-form-label">Username </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control custom-placeholder"
+                                    formControlName="username" id="username"
+                                    placeholder="UserName" /> 
+                                <span *ngIf="submitted && w.username.errors" class="text-danger">
+                                    <span *ngIf="w.username.errors.required ">
+                                       Please Enter username
+                                    </span></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label for="validity" class="col-sm-5 col-form-label">Password</label>
+                          <div class="col-sm-7">
+                              <input type="text" class="form-control custom-placeholder"
+                                  formControlName="password" id="password"
+                                  placeholder="password" /> 
+                              <span *ngIf="submitted && w.password.errors" class="text-danger">
+                                  <span *ngIf="w.password.errors.required ">
+                                     Please Enter Password
+                                  </span></span>
+                          </div>
+                      </div>
+                     
+                        
+                 
+  
+                    </div>
+                </div>
+                <div class="modal-footer no-border">
+               
+  
+                    <button  type="button" (click)="updateUser()"
+                        class="btn btn-primary btn-lg admin-main-btn admin-btn-bg next-3 next">update</button>
+                        
+                </div>
+
+                <div class="modal fade" id="modal-success">
+                    <div class="modal-dialog">
+                      <div class="modal-content bg-success">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Success Modal</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-outline-light">Save changes</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
