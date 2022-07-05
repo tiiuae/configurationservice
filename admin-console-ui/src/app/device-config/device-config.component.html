@@ -2,24 +2,25 @@
     
     <h1> Device Config </h1>  
       
-    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">  
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
         
-    
+
       
       <table class="table table-bordered" formArrayName="configs">  
         <tr>  
           <th colspan="2">Add Multiple Configs:</th>  
           <th width="150px"><button type="button" (click)="addConfig()" class="btn btn-primary">Add More</button></th>  
         </tr>  
-        <tr *ngFor="let config of configs().controls; let i=index" [formGroupName]="i">  
+        <tr *ngFor="let config of configs().controls; let i=index" [formGroupName]="i">
           <td>  
-              Key :  
-              <input type="text" formControlName="key" class="form-control">  
-          </td>  
-          <td>  
-              Value:  
-              <input type="text" formControlName="value" class="form-control">  
-          </td>  
+              Gw_service :
+              <input type="text" formControlName="gw_service" class="form-control">
+          </td>
+          <td>
+              IP address :
+              <input type="text" formControlName="ip" class="form-control">
+          </td>
+
           <td>  
               <button (click)="removeConfig(i)" class="btn btn-danger">Remove</button>  
           </td>  

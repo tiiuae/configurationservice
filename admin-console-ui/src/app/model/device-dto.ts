@@ -1,11 +1,11 @@
 
 
 export class DeviceDTO{
-    
-    ip:string;
- mac:string;
- type:string;
+
+    ip: string;
+ mac: string;
+ type: string;
 
 
-    
+
 }

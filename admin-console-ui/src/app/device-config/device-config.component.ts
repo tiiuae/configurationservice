@@ -11,52 +11,76 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./device-config.component.css']
 })
 export class DeviceConfigComponent implements OnInit {
- 
-    
-  deviceForm: FormGroup;  
-  configPaylod:ConfigDTO;   
-  mac:string;
-  ip:string;
-  sharingData = { ip: " " ,mac:""};
-  constructor(private fb:FormBuilder,private userService:UserService,private activateRoute : ActivatedRoute,private router: Router,
-    private sharedService:SharedService) {  
-     
-    this.deviceForm = this.fb.group({  
-   
-      configs: this.fb.array([]) ,  
-    });  
-  }  
-    
+  deviceForm: FormGroup;
+  configPaylod: ConfigDTO;
+  mac: string;
+  ip: string;
+  sharingData = { ip: ' ' , mac: ''};
+  constructor(private fb: FormBuilder, private userService: UserService, private activateRoute: ActivatedRoute, private router: Router,
+              private sharedService: SharedService) {
+
+    this.deviceForm = this.fb.group({
+
+      configs: this.fb.array([]) ,
+    });
+  }
+
   ngOnInit(): void {
-    this.sharingData=this.sharedService.getData();
-    this.ip=this.sharingData.ip;
-    this.mac=this.sharingData.mac;
+    this.sharingData = this.sharedService.getData();
+    this.ip = this.sharingData.ip;
+    this.mac = this.sharingData.mac;
 
      }
-  configs() : FormArray {  
-    return this.deviceForm.get("configs") as FormArray  
-  }  
-     
-  newConfig(): FormGroup {  
-    return this.fb.group({  
-      key: '',  
-      value: '',  
-    })  
-  }  
-     
-  addConfig() {  
-    this.configs().push(this.newConfig());  
-  }  
-     
-  removeConfig(i:number) {  
-    this.configs().removeAt(i);  
-  }  
-     
-  onSubmit() {  
-    console.log(this.deviceForm.value);  
-this.configPaylod=new ConfigDTO(this.deviceForm.value);
-this.configPaylod.mac=this.mac;
-this.configPaylod.ip=this.ip;
+  configs(): FormArray {
+    return this.deviceForm.get('configs') as FormArray;
+  }
+
+  newConfig(): FormGroup {
+    // @ts-ignore
+    return this.fb.group({
+      set_hostname: 'True',
+      disable_networking: 'True',
+      mesh_service: 'True',
+      gw_service: '',
+      dflt_service: 'True',
+      mesh_inf: 'wlp',
+      gw_inf: 'wla',
+      mesh_infs: 'w1',
+      api_version: '1',
+      ssid: 'gold',
+      key: '',
+      enc: 'SAE',
+      ap_mac: '00:11:22:33:44:55',
+      country: 'AE',
+      frequency: '5180',
+      subnet: '255.255.255.0',
+      tx_power: '30',
+      mode: 'mesh',
+      type: '11s',
+      ip: '',
+
+
+
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  addConfig() {
+    this.configs().push(this.newConfig());
+  }
+
+  // tslint:disable-next-line:typedef
+  removeConfig(i: number) {
+    this.configs().removeAt(i);
+  }
+
+  // tslint:disable-next-line:typedef
+  onSubmit() {
+    console.log(this.deviceForm.value);
+    this.configPaylod = new ConfigDTO(this.deviceForm.value);
+    console.log(this.configPaylod);
+    this.configPaylod.mac = this.mac;
+    this.configPaylod.ip = this.ip;
     this.userService.addConfig(this.configPaylod)
     .subscribe(data => {
       this.router.navigateByUrl('/device-list');
@@ -65,5 +89,5 @@ this.configPaylod.ip=this.ip;
       console.log(error);
     });
 
-  }  
+  }
 }

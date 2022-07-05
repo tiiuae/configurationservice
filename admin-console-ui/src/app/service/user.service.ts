@@ -13,9 +13,10 @@ import { PasswordChangeDTO } from '../model/password-change-dto';
   providedIn: 'root'
 })
 export class UserService {
+  // tslint:disable-next-line:typedef
   applyConfig(configPaylod: DeviceDTO) {
     return this.httpClient.post
-    (this.API_URL+'/api/apply-config', configPaylod  );
+    (this.API_URL+ '/api/apply-config', configPaylod  );
   }
   changePassword(passwordChange: PasswordChangeDTO) {
     return this.httpClient.put
@@ -40,20 +41,23 @@ export class UserService {
     return this.httpClient.get<ResponseDTO<UserDTO[]>>(this.API_URL + '/api/admin/admins');
   }
 
-  
+
   findDevices(): Observable<ResponseDTO<DeviceDTO[]>> {
     return this.httpClient.get<ResponseDTO<DeviceDTO[]>>(this.API_URL + '/api/devices');
   }
 
+  // tslint:disable-next-line:typedef
   addConfig(config: ConfigDTO) {
     return this.httpClient.post
     (this.API_URL+'/api/device/config', config  );
   }
 
+  // tslint:disable-next-line:typedef
   createGroup(group: GroupDTO) {
     return this.httpClient.post
     (this.API_URL+'/api/admin/group', group  );
   }
+  // tslint:disable-next-line:typedef
   updateGroup(group: GroupDTO) {
     return this.httpClient.put
     (this.API_URL+'/api/admin/group', group  );
@@ -62,7 +66,8 @@ export class UserService {
     return this.httpClient.get<ResponseDTO<GroupDTO[]>>(this.API_URL + '/api/admin/groups');
   }
 
-  
+
+  // tslint:disable-next-line:typedef
   deleteUser(userId: number) {
     return this.httpClient.delete<any>(this.API_URL + '/api/users/'+userId);
   }
