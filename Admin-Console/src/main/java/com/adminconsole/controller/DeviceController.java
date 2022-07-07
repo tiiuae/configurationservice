@@ -48,6 +48,7 @@ public class DeviceController {
             deviceConfig.setConfigId(device.getDeviceConfig().getConfigId());
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(config.getConfigs());
+
         deviceConfig.setConfigJson(json);
         device.setDeviceConfig(deviceConfig);
         deviceService.save(device);

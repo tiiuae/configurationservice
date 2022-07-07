@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { ConfigDTO } from '../model/config-dto';
 import { SharedService } from '../service/shared.service';
 import { UserService } from '../service/user.service';
+import {UUIDDTO} from '../model/uuid-dto';
 
 @Component({
   selector: 'app-device-config',
@@ -13,6 +14,7 @@ import { UserService } from '../service/user.service';
 export class DeviceConfigComponent implements OnInit {
   deviceForm: FormGroup;
   configPaylod: ConfigDTO;
+  uuid: UUIDDTO[];
   mac: string;
   ip: string;
   sharingData = { ip: ' ' , mac: ''};
@@ -58,9 +60,7 @@ export class DeviceConfigComponent implements OnInit {
       mode: 'mesh',
       type: '11s',
       ip: '',
-
-
-
+      uuid2: localStorage.uuid,
     });
   }
 
@@ -75,10 +75,18 @@ export class DeviceConfigComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  createUUID(){
+     this.userService.createUUID().subscribe(data => {
+      this.uuid = data.data;
+      localStorage.uuid = JSON.stringify(this.uuid);
+      // console.log(JSON.parse(localStorage.uuid));
+    }, error => {
+       console.log(error);
+     });
+  }
+  // tslint:disable-next-line:typedef
   onSubmit() {
-    console.log(this.deviceForm.value);
     this.configPaylod = new ConfigDTO(this.deviceForm.value);
-    console.log(this.configPaylod);
     this.configPaylod.mac = this.mac;
     this.configPaylod.ip = this.ip;
     this.userService.addConfig(this.configPaylod)

@@ -1,9 +1,6 @@
 package com.adminconsole.controller;
 
-import com.adminconsole.dto.PasswordChangeDTO;
-import com.adminconsole.dto.RegisterDTO;
-import com.adminconsole.dto.ResponseDTO;
-import com.adminconsole.dto.UserDTO;
+import com.adminconsole.dto.*;
 import com.adminconsole.entity.User;
 import com.adminconsole.service.UserService;
 import com.adminconsole.util.AdminUtil;
@@ -13,11 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.security.Principal;
 import java.util.List;
-import java.util.Scanner;
 
 @RestController
 @RequestMapping("/api")
@@ -115,6 +109,16 @@ public class UserController {
         return new ResponseEntity<ResponseDTO<List<User>>>(res, HttpStatus.OK);
 
     }
+    @GetMapping(value="/createUUID")
+    public ResponseEntity<ResponseDTO<UUIDDTO>> createUUID() throws Exception{
+        UUIDDTO uuid = userService.createUUID();
+        ResponseDTO<UUIDDTO> res = new ResponseDTO<UUIDDTO>();
+        res.setMessage("uuid created");
+        res.setData(uuid);
+        return new ResponseEntity<ResponseDTO<UUIDDTO>>(res, HttpStatus.OK);
+    }
+
+
 
     @GetMapping(value="/admin/admins")
     public ResponseEntity<ResponseDTO<List<User>>> listAllAdmins() throws Exception{
@@ -125,6 +129,8 @@ public class UserController {
         return new ResponseEntity<ResponseDTO<List<User>>>(res, HttpStatus.OK);
 
     }
+
+
 
     @PutMapping(value="/admin/user/change-password")
     public ResponseEntity<ResponseDTO<UserDTO>> changeUserPassword(

@@ -1,4 +1,8 @@
+import {UUIDDTO} from './uuid-dto';
+
+
 export class KeyValueDTO{
+
     set_hostname: string;
     disable_networking: string;
     mesh_service: string;
@@ -19,6 +23,7 @@ export class KeyValueDTO{
     mode: string;
     type: string;
     ip: string;
+    uuid2: string;
 
 
 

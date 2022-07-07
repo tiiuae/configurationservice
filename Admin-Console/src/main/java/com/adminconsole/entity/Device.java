@@ -57,6 +57,8 @@ public class Device {
         this.ip = ip;
     }
 
+
+
     public DeviceConfig getDeviceConfig() {
         return deviceConfig;
     }

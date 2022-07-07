@@ -9,7 +9,8 @@
       <table class="table table-bordered" formArrayName="configs">  
         <tr>  
           <th colspan="2">Add Multiple Configs:</th>  
-          <th width="150px"><button type="button" (click)="addConfig()" class="btn btn-primary">Add More</button></th>  
+          <th width="150px"><button type="button" (click)="addConfig()" class="btn btn-primary">Add More</button></th>
+            <th width="150px"><button type="button" (click)="createUUID()" class="btn btn-primary">Create UUID</button></th>
         </tr>  
         <tr *ngFor="let config of configs().controls; let i=index" [formGroupName]="i">
           <td>  
@@ -20,6 +21,7 @@
               IP address :
               <input type="text" formControlName="ip" class="form-control">
           </td>
+
 
           <td>  
               <button (click)="removeConfig(i)" class="btn btn-danger">Remove</button>  

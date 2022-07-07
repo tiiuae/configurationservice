@@ -9,5 +9,7 @@ public class ConfigDTO {
     String ip;
     private String mac;
     private List<KeyValue> configs;
+    public UUIDDTO uuid;
+
 
 }

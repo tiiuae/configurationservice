@@ -1,9 +1,10 @@
 package com.adminconsole.service;
 
 import com.adminconsole.dto.ArpDTO;
+import com.adminconsole.dto.UUIDDTO;
 import com.adminconsole.entity.User;
 import com.adminconsole.repository.UserRepository;
-import com.adminconsole.util.AdminUtil;
+import com.adminconsole.util.UUIDgeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -98,6 +99,7 @@ public class UserService {
         return bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
     }
 
+
     public List<User> findAdmins() {
         return repo.findByRolesRoleId(1);
 
@@ -106,6 +108,14 @@ public class UserService {
     public List<User> findUsers() throws IOException {
       return   repo.findByRolesRoleId(2);
 
+    }
+
+    public UUIDDTO createUUID() {
+        UUIDDTO uuid= new UUIDDTO();
+        UUID uuid2 = UUID.randomUUID();
+        UUID uuid3 = UUIDgeneration.fromUTF8(String.valueOf(uuid2));
+        uuid.setUuid(String.valueOf(uuid3));
+        return uuid;
     }
 
     public User findbyUserId(int userId) {
