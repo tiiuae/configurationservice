@@ -1,5 +1,7 @@
 package com.adminconsole.entity;
 
+import com.adminconsole.dto.UUIDDTO;
+
 import javax.persistence.*;
 
 @Entity
