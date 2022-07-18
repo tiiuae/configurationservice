@@ -91,6 +91,7 @@ export class DeviceConfigComponent implements OnInit {
     this.configPaylod.ip = this.ip;
     this.userService.addConfig(this.configPaylod)
     .subscribe(data => {
+      localStorage.clear();
       this.router.navigateByUrl('/device-list');
 
     }, error => {
